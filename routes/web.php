@@ -12,7 +12,7 @@
 */
 
 Route::get('/', function () {
-    return view('home');
+    return view('layouts.login');
 });
 
 Route::prefix('admin')->group(function () {
@@ -25,6 +25,18 @@ Route::prefix('admin')->group(function () {
     });
     Route::get('/logout','HomeController@logout');
 });
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
 
 Auth::routes();
 

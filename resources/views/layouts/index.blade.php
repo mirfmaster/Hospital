@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Gentelella Alela! | </title>
+    <title>LaraSchool @yield('title') </title>
 
     <!-- Bootstrap -->
     <link href="{{asset('styling/css/bootstrap.min.css')}}" rel="stylesheet">
@@ -47,7 +47,7 @@
             <br />
 
             <!-- sidebar menu -->
-            @include('admin.partials.sidebar')
+            @include('layouts.partials.sidebar')
             <!-- /sidebar menu -->
 
             <!-- /menu footer buttons -->
