@@ -20,13 +20,13 @@
     <link href="{{asset('styling/css/custom.min.css')}}" rel="stylesheet">
   </head>
 
-  <body class="nav-md">
+  <body class="nav-md footer-fixed menu_fixed">
     <div class="container body">
       <div class="main_container">
         <div class="col-md-3 left_col">
           <div class="left_col scroll-view">
             <div class="navbar nav_title" style="border: 0;">
-              <a href="index.html" class="site_title"><i class="fa fa-paw"></i> <span>Gentelella Alela!</span></a>
+              <a href="index.html" class="site_title"><i class="fa fa-paw"></i> <span>Fake Hospital!</span></a>
             </div>
 
             <div class="clearfix"></div>
@@ -34,20 +34,19 @@
             <!-- menu profile quick info -->
             <div class="profile clearfix">
               <div class="profile_pic">
-                <img src="images/img.jpg" alt="..." class="img-circle profile_img">
+                <img src="" alt="..." class="img-circle profile_img">
               </div>
               <div class="profile_info">
                 <span>Welcome,</span>
-                <h2>John Doe</h2>
+                <h2>{{auth()->user()->name}}</h2>
               </div>
               <div class="clearfix"></div>
             </div>
             <!-- /menu profile quick info -->
-
             <br />
 
             <!-- sidebar menu -->
-            @include('layouts.partials.sidebar')
+            @include('admin.partials.sidebar')
             <!-- /sidebar menu -->
 
             <!-- /menu footer buttons -->
@@ -61,7 +60,6 @@
               <a data-toggle="tooltip" data-placement="top" title="Lock">
                 <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
               </a>
-              
               <a data-toggle="tooltip" data-placement="top" title="Logout" href="{{url('logout')}}">
               <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
                 <!-- <form id="logout-form" action="{{ route('logout') }}" method="POST">
@@ -175,14 +173,14 @@
 
         <!-- page content -->
         <div class="right_col" role="main">
+
           <div class="">
             <div class="clearfix"></div>
-
             <div class="row">
               <div class="col-md-12 col-sm-12 col-xs-12">
-                <div class="x_panel">
+                <div class="x_panel" style="background-color:#dfe4ea;font-color:#000000">
                   <div class="x_title">
-                    <h2>@yield('section-title')</h2>
+                    <h2>@yield('section-title','Fake Hospital')</h2>
                     <ul class="nav navbar-right panel_toolbox">
                       <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                       </li>
@@ -190,7 +188,7 @@
                     <div class="clearfix"></div>
                   </div>
                   <div class="x_content">
-                      @yield('section')
+                      @yield('section','Fake Section')
                   </div>
                 </div>
               </div>

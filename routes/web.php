@@ -12,7 +12,12 @@
 */
 
 Route::get('/', function () {
-    return view('layouts.login');
+    return view('admin.index');
+})->middleware('auth');
+
+Route::get('logout',function(){
+    Auth::logout();
+    return redirect('/login');
 });
 
 Route::prefix('admin')->group(function () {
@@ -25,18 +30,6 @@ Route::prefix('admin')->group(function () {
     });
     Route::get('/logout','HomeController@logout');
 });
-
-Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');
-
-Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');
-
-Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');
 
 Auth::routes();
 
