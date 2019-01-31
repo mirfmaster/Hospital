@@ -29,6 +29,9 @@ Route::prefix('admin')->group(function () {
         return view('admin.login');
     });
     Route::get('/logout','HomeController@logout');
+
+    Route::resource('user', 'UserController');
+    Route::resource('job', 'JobController');
 });
 
 Auth::routes();
