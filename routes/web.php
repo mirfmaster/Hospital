@@ -29,6 +29,7 @@ Route::prefix('admin')->group(function () {
         return view('admin.login');
     });
     Route::get('/logout','HomeController@logout');
+    Route::match(['get', 'delete','patch'], 'job/trashed/{job?}', 'JobController@trashed')->name('job.trashed');
 
     Route::resource('user', 'UserController');
     Route::resource('job', 'JobController');

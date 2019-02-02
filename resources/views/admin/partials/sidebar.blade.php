@@ -9,7 +9,13 @@
         </li>
         <li><a><i class="fa fa-edit"></i> Hospital Management <span class="fa fa-chevron-down"></span></a>
         <ul class="nav child_menu">
-            <li><a href="{{route('job.index')}}">Jobs Management</a></li>
+            <li>
+                <a>Jobs Management <span class="fa fa-chevron-down"></span></a>
+                <ul class="nav child_menu">
+                    <li class="sub_menu"><a href="{{route('job.index')}}">All Jobs</a></li>
+                    <li class="sub_menu"><a href="{{route('job.trashed')}}">Banned Jobs</a></li>
+                </ul>
+            </li>
             <li><a href="{{route('user.index')}}">Doctors Management</a></li>
             <li><a href="form_validation.html">Form Validation</a></li>
             <li><a href="form_wizards.html">Form Wizard</a></li>

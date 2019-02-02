@@ -18,6 +18,7 @@ class CreateJobsTable extends Migration
             $table->string('job_name');
             $table->string('job_desc')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

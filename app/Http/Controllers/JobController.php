@@ -7,33 +7,17 @@ use Illuminate\Http\Request;
 
 class JobController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
         $data= Job::paginate(5);
         return view('admin.job.index',compact('data'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
         return view('admin.job.form');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
         $data=Job::findOrFail($id);
@@ -49,19 +33,31 @@ class JobController extends Controller
         }
         return redirect()->route('job.index')->with('success', 'Your request succesfully executed.');
     }
+    
+    public function store(Request $request)
+    {
+        $job = Job::create($request->all());
+        return redirect()->route('job.index')->with('success', 'Your request succesfully executed.');
+    }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Job  $job
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
         $data=Job::findOrFail($id);
         if($data->delete()){
             return redirect()->route('job.index')->with('success','Your data has been deleted.');
         }
+    }
 
+    public function trashed($id=null,Request $request)
+    {
+        if(isset($id) & $request->isMethod('PATCH')){
+            $data=Job::onlyTrashed()->findOrFail($id)->restore();
+            return redirect()->route('job.trashed')->with('success','Your data has been restored');
+        } elseif (isset($id) & $request->isMethod('DELETE')){
+            $data=Job::onlyTrashed()->findOrFail($id)->forceDelete();
+            return redirect()->route('job.trashed')->with('danger','Your data has been fully deleted');
+        }
+        $data=Job::onlyTrashed()->paginate(5);
+        return view('admin.job.banned',compact('data'));
     }
 }
