@@ -12,8 +12,8 @@
 */
 
 Route::get('/', function () {
-    return view('admin.index');
-})->middleware('auth');
+    return view('layouts.user');
+});
 
 Route::get('logout',function(){
     Auth::logout();
@@ -30,9 +30,11 @@ Route::prefix('admin')->group(function () {
     });
     Route::get('/logout','HomeController@logout');
     Route::match(['get', 'delete','patch'], 'job/trashed/{job?}', 'JobController@trashed')->name('job.trashed');
+    Route::match(['get', 'delete','patch'], 'drug/trashed/{drug?}', 'DrugController@trashed')->name('drug.trashed');
 
     Route::resource('user', 'UserController');
     Route::resource('job', 'JobController');
+    Route::resource('drug', 'DrugController');
 });
 
 Auth::routes();

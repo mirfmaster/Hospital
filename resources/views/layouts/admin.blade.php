@@ -189,7 +189,8 @@
                           <div class="clearfix"></div>
                       </div>
                       <div class="x_content">
-                          @yield('content')
+                        @include('components.alerts')
+                        @yield('content')
                       </div>
                   </div>
                 </div>

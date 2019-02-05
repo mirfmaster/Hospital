@@ -8,20 +8,53 @@
         </ul>
         </li>
         <li><a><i class="fa fa-edit"></i> Hospital Management <span class="fa fa-chevron-down"></span></a>
-        <ul class="nav child_menu">
-            <li>
-                <a>Jobs Management <span class="fa fa-chevron-down"></span></a>
-                <ul class="nav child_menu">
-                    <li class="sub_menu"><a href="{{route('job.index')}}">All Jobs</a></li>
-                    <li class="sub_menu"><a href="{{route('job.trashed')}}">Banned Jobs</a></li>
-                </ul>
-            </li>
-            <li><a href="{{route('user.index')}}">Doctors Management</a></li>
-            <li><a href="form_validation.html">Form Validation</a></li>
-            <li><a href="form_wizards.html">Form Wizard</a></li>
-            <li><a href="form_upload.html">Form Upload</a></li>
-            <li><a href="form_buttons.html">Form Buttons</a></li>
-        </ul>
+            <ul class="nav child_menu">
+                <li>
+                    <a>Jobs Management <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                        <li class="sub_menu"><a href="{{route('job.index')}}">All Jobs</a></li>
+                        <li class="sub_menu"><a href="{{route('job.trashed')}}">Banned Jobs</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a>Structure Management<span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                        <li class="sub_menu"><a href="{{route('user.index')}}">All Workers</a></li>
+                        <li class="sub_menu"><a href="{{route('job.trashed')}}">Banned Workers</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a>Patient Management<span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                        <li class="sub_menu"><a href="{{route('user.index')}}">All Workers</a></li>
+                        <li class="sub_menu"><a href="{{route('job.trashed')}}">Banned Workers</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a>Inventory Management<span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                    <li>
+                        <a>Drugs<span class="fa fa-chevron-down"></span></a>
+                        <ul class="nav child_menu">
+                            <li class="sub_menu"><a href="{{route('drug.index')}}">All Drugs</a></li>
+                            <li class="sub_menu"><a href="{{route('drug.trashed')}}">Banned Drugs</a></li>
+                        </ul>
+                    </li>
+                        <li class="sub_menu"><a href="{{route('job.trashed')}}">Room</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </li>
+        <li><a><i class="fa fa-edit"></i> Transactions<span class="fa fa-chevron-down"></span></a>
+            <ul class="nav child_menu">
+                <li>
+                    <a>Jobs Management <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                        <li class="sub_menu"><a href="{{route('job.index')}}">All Jobs</a></li>
+                        <li class="sub_menu"><a href="{{route('job.trashed')}}">Banned Jobs</a></li>
+                    </ul>
+                </li>
+            </ul>
         </li>
     </ul>
     </div>

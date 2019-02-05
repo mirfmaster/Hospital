@@ -2,11 +2,6 @@
 
 
 @section('content')
-    <!-- @component('components.alert')
-        @slot('content')
-            Whoots
-        @endslot
-    @endcomponent -->
 <table id="datatable-responsive" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
     <thead >
         <tr>
@@ -19,7 +14,7 @@
     </thead>
     <tbody>
         @php ($no=1)
-        @foreach($data as $d)
+        @forelse($data as $d)
         <tr>
             <td class="text-center">{{$no++}}</td>
             <td class="text-center">{{$d['job_id']}}</td>
@@ -34,7 +29,9 @@
                 </form> 
             </td>
         </tr>
-        @endforeach
+        @empty
+        <tr><td colspan="5"> Sorry we dont found data yet.</td></tr>
+        @endforelse
         
     </tbody>
     

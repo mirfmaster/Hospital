@@ -13,9 +13,12 @@
     <thead >
         <tr>
             <th>No</th>
-            <th>Job ID</th>
-            <th>Job Name</th>
-            <th>Job Description</th>
+            <th>Drug ID</th>
+            <th>Drug Name</th>
+            <th>Stocks</th>
+            <th>Price</th>
+            <th>Created At</th>
+            <th>Updated At</th>
             <th>Action</th>
         </tr>
     </thead>
@@ -24,30 +27,33 @@
         @forelse($data as $d)
         <tr>
             <td class="text-center">{{$no++}}</td>
-            <td class="text-center">{{$d['job_id']}}</td>
-            <td>{{$d['job_name']}}</td>
-            <td style="max-width:45rem">{{$d['job_desc']}}</td>
+            <td class="text-center">{{$d['drug_id']}}</td>
+            <td>{{$d['drug_name']}}</td>
+            <td class="text-center">{{$d['stocks']}}</td>
+            <td class="text-center">@rp($d['price'])</td>
+            <td class="text-center">{{Carbon\Carbon::parse($d->created_at)->format('j F Y')}}</td>
+            <td class="text-center">{{Carbon\Carbon::parse($d->updated_at)->format('j F Y')}}</td>
             <td class="text-center align-middle">
-                <!-- <a href="{{route('job.trashed',$d['job_id'])}}" class="btn btn-info"> Restore</a>     -->
-                <form action="{{route('job.trashed',$d['job_id'])}}" method="post">
+                <form action="{{route('drug.trashed',$d['drug_id'])}}" method="post">
                     @csrf
                     @method('patch')
                     <input type="submit" class="btn btn-info" value="Restore">
                 </form> 
-                <form action="{{route('job.trashed',$d['job_id'])}}" method="post">
+                <form action="{{route('drug.trashed',$d['drug_id'])}}" method="post">
                     @csrf
                     @method('DELETE')
                     <input type="submit" class="btn btn-danger" value="Force Delete">
-                </form> 
+                </form>
             </td>
         </tr>
         @empty
-        <p>Sorry we dont found any data, yet.</p>
+        <tr><td colspan="8"> Sorry we dont found data yet.</td></tr>
         @endforelse
         
     </tbody>
     
 </table>
 {{$data->links()}}
-<a href="{{route('job.create')}}" class="btn btn-primary">Add Job Specification</a>
+<a href="{{route('drug.create')}}" class="btn btn-primary">Add Data</a>
 @endsection
+
