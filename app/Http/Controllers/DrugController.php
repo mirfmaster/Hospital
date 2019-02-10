@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Drug;
+use App\Models\Drug;
 use Illuminate\Http\Request;
 
 class DrugController extends Controller

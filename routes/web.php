@@ -21,22 +21,21 @@ Route::get('logout',function(){
 });
 
 Route::prefix('admin')->group(function () {
+
     Route::get('/', function () {
         return view('admin.index');
     })->middleware('auth');
-    Route::get('/login',function ()
-    {
-        return view('admin.login');
-    });
+    Route::get('admin/login','UserController@showLoginForm')->name('admin.login');
     Route::get('/logout','HomeController@logout');
+
+    // Route::name('trashed.')->group(function(){});
     Route::match(['get', 'delete','patch'], 'job/trashed/{job?}', 'JobController@trashed')->name('job.trashed');
     Route::match(['get', 'delete','patch'], 'drug/trashed/{drug?}', 'DrugController@trashed')->name('drug.trashed');
 
     Route::resource('user', 'UserController');
-    Route::resource('job', 'JobController');
+    Route::resource('patient', 'PatientController');
+    Route::resource('diagnosis', 'DiagnosisController');
     Route::resource('drug', 'DrugController');
 });
 
 Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');

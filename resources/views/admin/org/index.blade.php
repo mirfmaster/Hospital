@@ -5,9 +5,15 @@
     <thead >
         <tr>
             <th>No</th>
-            <th>User ID</th>
-            <th>Email</th>
             <th>Name</th>
+            <th>Email</th>
+            <th>Address</th>
+            <th>City</th>
+            <th>Sex</th>
+            <th>Salary</th>
+            <th>Experience</th>
+            <th>Specialization</th>
+            <th>Contact</th>
             <th>Role</th>
             <th>Created At</th>
             <th>Updated At</th>
@@ -16,25 +22,37 @@
     </thead>
     <tbody>
         @php ($no=1)
-        @foreach($data as $d)
+        @forelse($data as $d)
         <tr>
             <td class="text-center">{{$no++}}</td>
-            <td class="text-center">{{$d->user_id}}</td>
-            <td class="text-center">{{$d->email}}</td>
             <td>{{$d->name}}</td>
-            <td>{{$d->role}}</td>
-            <td class="text-center">{{Carbon\Carbon::parse($d->created_at)->format('j F Y')}}</td>
-            <td class="text-center">{{Carbon\Carbon::parse($d->updated_at)->format('j F Y')}}</td>
+            <td>{{$d->email}}</td>
+            <td>{{$d->address}}</td>
+            <td>{{$d->city}}</td>
+            <td>{{$d->sex}}</td>
+            <td>@rp($d->salary)</td>
+            <td>{{isset($d->experience) ? $d->experience." Years":"No Experiences yet."}}</td>
+            <td>{{$d->specialization}}</td>
+            <td>{{$d->contact}}</td>
+            <td>
+                @foreach($d->roles as $role)
+                        {{$role->name}}
+                @endforeach
+            </td>
+            <td class="text-center">{{Carbon\Carbon::parse($d->created_at)->format('d/m/Y')}}</td>
+            <td class="text-center">{{Carbon\Carbon::parse($d->updated_at)->format('d/m/Y')}}</td>
             <td class="text-center align-middle">
-                <a href="{{route('user.show',$d['user_id'])}}" class="btn btn-warning"> Edit</a>    
-                <form action="{{route('user.destroy',$d['user_id'])}}" method="post">
+                <a href="{{route('user.show',$d['id'])}}" class="btn btn-warning"> <span class="glyphicon glyphicon-pencil"></span></a>    
+                <form action="{{route('user.destroy',$d['id'])}}" method="post">
                     @csrf
                     @method('DELETE')
-                    <input type="submit" class="btn btn-danger" value="Delete">
+                    <button type="submit" class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span></button>
                 </form> 
             </td>
         </tr>
-        @endforeach
+        @empty
+        <tr><td colspan="8">No Data Found Yet.</td></tr>
+        @endforelse
         
     </tbody>
     

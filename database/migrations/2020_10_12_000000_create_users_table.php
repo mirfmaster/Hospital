@@ -14,16 +14,17 @@ class CreateUsersTable extends Migration
     public function up()
     {
         Schema::create('users', function (Blueprint $table) {
-            $table->increments('user_id');
-            $table->string('name');
-            $table->string('address');
+            $table->increments('id');
+            $table->string('name', 30);
             $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->unsignedInteger('job_id')->nullable();
-            $table->foreign('job_id')->references('job_id')->on('jobs');  
-            $table->string('role');
-            $table->rememberToken();
+            $table->string('address', 100)->nullable();
+            $table->string('city')->nullable();
+            $table->string('sex', 10)->default('Male');
+            $table->string('salary', 15)->nullable();
+            $table->string('experience', 3)->nullable();
+            $table->string('specialization', 30)->nullable();
+            $table->string('contact')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });
@@ -33,7 +34,6 @@ class CreateUsersTable extends Migration
                 'email' => 'super@admin.com',
                 'name' => 'Super Admin',
                 'password' => Hash::make("123123"),
-                'role' => "manager"
             )
         );
     }
