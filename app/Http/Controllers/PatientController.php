@@ -71,9 +71,9 @@ class PatientController extends Controller
         //
     }
 
-    public function generateUserName($name)
+    public function generateUserName($name,$code =200)
     {
         $name=substr(str_replace(' ','',strtolower($name)), 0, rand(6,10)).rand(1,100);
-        return $name;
+        return response()->json(['name'=>$name]);
     }
 }

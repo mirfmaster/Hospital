@@ -212,6 +212,9 @@
 
     <!-- jQuery -->
     <script src="{{asset('styling/jquery.min.js')}}"></script>
+    <script>
+      @stack('scripts')
+    </script>
     <!-- Bootstrap -->
     <script src="{{asset('styling/js/bootstrap.min.js')}}"></script>
     <!-- FastClick -->

@@ -10,6 +10,7 @@
             <th>Name</th>
             <th>Date of birth</th>
             <th>Adress</th>
+            <th>Contact</th>
             <th>Created At</th>
             <th>Updated At</th>
             <th>Action</th>
@@ -24,6 +25,7 @@
             <td class="text-center">{{$d['name']}}</td>
             <td class="text-center">{{$d['birth_date']}}</td>
             <td class="text-center">{{$d['adress']}}</td>
+            <td class="text-center">{{$d['contact']}}</td>
             <td class="text-center">{{Carbon\Carbon::parse($d->created_at)->format('j F Y')}}</td>
             <td class="text-center">{{Carbon\Carbon::parse($d->updated_at)->format('j F Y')}}</td>
             <td class="text-center align-middle">

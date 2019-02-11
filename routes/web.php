@@ -27,6 +27,7 @@ Route::prefix('admin')->group(function () {
     })->middleware('auth');
     Route::get('admin/login','UserController@showLoginForm')->name('admin.login');
     Route::get('/logout','HomeController@logout');
+    Route::get('/patient/generateUserName/{name}','PatientController@generateUserName');
 
     // Route::name('trashed.')->group(function(){});
     Route::match(['get', 'delete','patch'], 'job/trashed/{job?}', 'JobController@trashed')->name('job.trashed');
