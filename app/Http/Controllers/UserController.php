@@ -8,6 +8,10 @@ use Hash;
 
 class UserController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth:admin');
+    }
     public function index($type=null)
     {
         $data=User::with('roles')->paginate(10);
@@ -53,10 +57,4 @@ class UserController extends Controller
             return redirect()->route('job.index')->with('info','Your data temporarily deleted.');
         }
     }
-
-    public function showLoginForm()
-    {
-        return view('admin.login');
-    }
-
 }

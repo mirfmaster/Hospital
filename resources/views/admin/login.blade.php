@@ -30,11 +30,10 @@
     <div>
       <a class="hiddenanchor" id="signup"></a>
       <a class="hiddenanchor" id="signin"></a>
-
       <div class="login_wrapper">
         <div class="animate form login_form">
           <section class="login_content">
-            <form action="{{route('login')}}" method="POST">
+            <form action="{{route('admin.login.submit')}}" method="POST">
               @csrf
               <h1>Login Form</h1>
               <div>

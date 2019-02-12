@@ -20,7 +20,7 @@
             <input type="text" name="username" class="form-control" placeholder="User Name" id="username" value=
                 "{{isset($data) ? $data->name:null}}" readonly
             >
-            <div style="diplay:none !important">You don't like the username? just clickin/clickout your name again.</div>
+            <div>You don't like the username? just clickin/clickout your name again.</div>
         </div>
         <div class="form-group">
             <label>Date of Birth</label>
@@ -34,13 +34,16 @@
         </div>
         <div class="form-group">
             <label>Phone</label>
-            <input type="text" name="phone" class="form-control" placeholder="Phone" value=
+            <input type="text" name="phone" class="form-control" placeholder="Phone" maxlength="13" value=
                 "{{isset($data) ? $data->phone:null}}" onkeypress="return isNumberKey(event)"
             >
         </div>
             <input type="submit" class="btn btn-primary center-margin" value="Submit"/>
             <input type="reset" class="btn btn-warning" value="Reset"/>
     </form>
+    @if(!isset($data))
+        <div>This account will have <code>new patient</code> as their password.</div>
+    @endif
 </div>
 @endsection
 
@@ -55,8 +58,7 @@ $('#name').on('focusout',function(e) {
         url: url,
         success:function(name) {
             $("#username").val(name.name);
-        },
-        error: function(ts) { alert(ts.responseText) }
+        }
     });
 });
 

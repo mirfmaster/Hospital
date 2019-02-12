@@ -14,5 +14,6 @@ class User extends Authenticatable
     protected $fillable=['name','email','address','city','sex','salary','experience','specialization','contact','password'];
     protected $hidden = ['remember_token'];
     protected $dates=['created_at','updated_at','deleted_at'];
+    protected $guard='admin';
 
 }

@@ -60,14 +60,8 @@
               <a data-toggle="tooltip" data-placement="top" title="Lock">
                 <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
               </a>
-              <a data-toggle="tooltip" data-placement="top" title="Logout" href="{{url('logout')}}">
+              <a data-toggle="tooltip" data-placement="top" title="Logout" href="{{url('admin/logout')}}">
               <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
-                <!-- <form id="logout-form" action="{{ route('logout') }}" method="POST">
-                  @csrf
-                  <button type="submit" style="background:none;">
-                    
-                  </button>
-                </form> -->
               </a>
             </div>
             <!-- /menu footer buttons -->

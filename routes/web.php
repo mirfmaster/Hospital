@@ -22,11 +22,10 @@ Route::get('logout',function(){
 
 Route::prefix('admin')->group(function () {
 
-    Route::get('/', function () {
-        return view('admin.index');
-    })->middleware('auth');
-    Route::get('admin/login','UserController@showLoginForm')->name('admin.login');
-    Route::get('/logout','HomeController@logout');
+    Route::get('/', 'UserController@index');
+    Route::get('/login','Auth\AdminLoginController@showLoginForm')->name('admin.login');
+    Route::post('/login','Auth\AdminLoginController@login')->name('admin.login.submit');
+    Route::get('/logout','Auth\AdminLoginController@logout');
     Route::get('/patient/generateUserName/{name}','PatientController@generateUserName');
 
     // Route::name('trashed.')->group(function(){});

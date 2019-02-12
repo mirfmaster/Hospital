@@ -8,6 +8,11 @@ use Hash;
 
 class PatientController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth:admin');
+    }
+
     public function index()
     {
         $data=Patient::paginate(5);
@@ -32,9 +37,10 @@ class PatientController extends Controller
      * @param  \App\Models\Patient  $patient
      * @return \Illuminate\Http\Response
      */
-    public function show(Patient $patient)
+    public function show($id)
     {
-        //
+        $data=Patient::findOrFail($id);
+        return view('admin.patient.form',compact('data'));
     }
 
     /**
@@ -55,9 +61,14 @@ class PatientController extends Controller
      * @param  \App\Models\Patient  $patient
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Patient $patient)
+    public function update(Request $request, $id)
     {
-        //
+        $patient = patient::updateOrCreate(['id'=> $id],$request->all());
+        $wasChanged = $patient->wasChanged();
+        if($wasChanged){
+            return redirect()->route('patient.index')->with('success', 'Your update request succesfully executed.');
+        }
+        return redirect()->route('patient.index')->with('info', 'We dont found data that you want update, but we created it again.');
     }
 
     /**
@@ -66,14 +77,20 @@ class PatientController extends Controller
      * @param  \App\Models\Patient  $patient
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Patient $patient)
+    public function destroy($id)
     {
-        //
+        Patient::destroy($id);
+        return redirect()->route('patient.index')->with('warning', 'Your request has been successfully executed');
     }
 
     public function generateUserName($name,$code =200)
     {
         $name=substr(str_replace(' ','',strtolower($name)), 0, rand(6,10)).rand(1,100);
         return response()->json(['name'=>$name]);
+    }
+
+    public function showLogin()
+    {
+        return view('user.login');
     }
 }
