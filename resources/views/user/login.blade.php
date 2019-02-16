@@ -1,15 +1,17 @@
-@extends('layouts.user')
+@extends('user.container')
 
 @section('content')
-<form>
+{{isset($errors) ? $errors:null}}
+<form method="POST" action="{{route('login')}}">
+  @csrf
   <div class="form-group">
-    <label for="exampleInputEmail1">Email address</label>
-    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
-    <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+    <label for="exampleInputEmail1">Username</label>
+    <input type="text" class="form-control" placeholder="Enter Username" name="username">
+    <small id="UsernameHelp" class="form-text text-muted">We'll never share your Username with anyone else.</small>
   </div>
   <div class="form-group">
     <label for="exampleInputPassword1">Password</label>
-    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+    <input type="password" class="form-control" placeholder="Password" name="password">
   </div>
   <div class="form-check">
     <input type="checkbox" class="form-check-input" id="exampleCheck1">

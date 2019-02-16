@@ -57,4 +57,16 @@ class UserController extends Controller
             return redirect()->route('job.index')->with('info','Your data temporarily deleted.');
         }
     }
+    public function trashed($id=null,Request $request)
+    {
+        if(isset($id) & $request->isMethod('PATCH')){
+            $data=Job::onlyTrashed()->findOrFail($id)->restore();
+            return redirect()->route('user.trashed')->with('info','Your data has been restored');
+        } elseif (isset($id) & $request->isMethod('DELETE')){
+            $data=Job::onlyTrashed()->findOrFail($id)->forceDelete();
+            return redirect()->route('user.trashed')->with('info','Your data has been fully deleted');
+        }
+        $data=Job::onlyTrashed()->paginate(5);
+        return view('admin.org.banned',compact('data'));
+    }
 }

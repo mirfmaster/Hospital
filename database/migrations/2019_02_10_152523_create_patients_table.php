@@ -21,6 +21,7 @@ class CreatePatientsTable extends Migration
             $table->string('phone')->unique();
             $table->string('password');
             $table->string('address', 100)->nullable();
+            $table->rememberToken();
             $table->timestamps();
         });
     }

@@ -31,36 +31,12 @@ class PatientController extends Controller
         return redirect()->route('patient.index')->with('success', 'Your request succesfully executed.');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Patient  $patient
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
         $data=Patient::findOrFail($id);
         return view('admin.patient.form',compact('data'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Patient  $patient
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Patient $patient)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Patient  $patient
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, $id)
     {
         $patient = patient::updateOrCreate(['id'=> $id],$request->all());
@@ -71,12 +47,6 @@ class PatientController extends Controller
         return redirect()->route('patient.index')->with('info', 'We dont found data that you want update, but we created it again.');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Patient  $patient
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
         Patient::destroy($id);
@@ -93,4 +63,6 @@ class PatientController extends Controller
     {
         return view('user.login');
     }
+
+    
 }

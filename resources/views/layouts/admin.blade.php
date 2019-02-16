@@ -46,7 +46,7 @@
             <br />
 
             <!-- sidebar menu -->
-            @include('admin.partials.sidebar')
+            @include('admin.sidebar')
             <!-- /sidebar menu -->
 
             <!-- /menu footer buttons -->
