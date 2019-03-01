@@ -12,16 +12,12 @@
 */
 
 Route::get('/', function () {
-    return view('layouts.user');
-});
-
-Route::get('/dashboard', function () {
     return view('user.modules.dashboard');
 });
 
 Route::get('/login', 'Auth\LoginController@showLoginForm')->name('login');
-
 Route::post('/login','Auth\LoginController@login')->name('user.login.submit');
+Route::get('/history/{id}', 'PatientController@history')->name('history');
 
 Route::get('/logout','Auth\LoginController@logout');
 

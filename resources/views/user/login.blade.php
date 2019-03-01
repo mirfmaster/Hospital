@@ -6,7 +6,7 @@
   @csrf
   <div class="form-group">
     <label for="exampleInputEmail1">Username</label>
-    <input type="text" class="form-control" placeholder="Enter Username" name="username">
+    <input type="text" class="form-control error" placeholder="Enter Username" name="username">
     <small id="UsernameHelp" class="form-text text-muted">We'll never share your Username with anyone else.</small>
   </div>
   <div class="form-group">

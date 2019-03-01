@@ -28,7 +28,7 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/dashboard';
+    protected $redirectTo = '/';
 
     /**
      * Create a new controller instance.
@@ -50,10 +50,10 @@ class LoginController extends Controller
         //Attempt to log the user in
         if (Auth::guard('web')->attempt(['username' => $request->username, 'password' => $request->password], $request->remember)) {
             //if sucessful, the redirect to their
-            return redirect()->intended('/dashboard');
+            return redirect()->intended('/');
         }
         //if unseccessful
-        return redirect()->back()->withInput($request->only('username', 'remember'));
+        return redirect()->back()->withInput($request->only('username','password', 'remember'));
     }
 
     public function showLoginForm()
@@ -64,6 +64,6 @@ class LoginController extends Controller
     public function logout()
     {
         Auth::guard('web')->logout();
-        return redirect('/dashboard');
+        return redirect('/');
     }
 }

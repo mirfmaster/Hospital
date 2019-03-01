@@ -5,7 +5,7 @@
                 <div class="logo">
                     <a href="#home"><img src="{{asset('styling/user/img/logo.png')}}" alt=""></a>
                 </div>
-                {{Auth::check() ? auth()->user()->name:null}}
+                {{Auth::check() ? "Welcome back, ".ucfirst(auth()->user()->name):null}}
                 <div class="main-menubar d-flex align-items-center">
                     <nav class="hide">
                         <a href="#home">Home</a>
@@ -14,6 +14,7 @@
                         @if(!Auth::check())
                             <a href="/login">Login</a>
                         @else
+                            <a href="{{route('diagnosis.show',auth()->user()->id)}}">History</a>
                             <a href="/logout">Logout</a>
                         @endif
                     </nav>

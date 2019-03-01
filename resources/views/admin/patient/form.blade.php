@@ -48,6 +48,7 @@
 @endsection
 
 @push('scripts')
+<script>
 $('#name').on('focusout',function(e) {
     e.preventDefault(); 
     var name = $('#name').val();
@@ -68,4 +69,5 @@ function isNumberKey(evt){
         return false;
     return true;
 }
+</script>
 @endpush

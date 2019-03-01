@@ -12,9 +12,16 @@ class User extends Authenticatable
 {
     use SoftDeletes,HasRoles,Notifiable;
     protected $primaryKey="id";
-    protected $fillable=['name','email','address','city','sex','salary','experience','specialization','contact','password'];
+    protected $fillable=['id','name','email','address','city','sex','salary','experience','specialization','contact','password'];
     protected $hidden = ['remember_token'];
     protected $dates=['created_at','updated_at','deleted_at'];
     protected $guard='admin';
+    protected $touches=['patients'];
 
+    public function patients()
+    {
+        return $this->belongsToMany('App\Models\Patient','diagnosis')
+                ->withPivot('diagnose')
+                ->withTimestamps();
+    }
 }

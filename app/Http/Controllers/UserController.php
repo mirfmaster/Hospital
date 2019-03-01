@@ -18,7 +18,7 @@ class UserController extends Controller
         return view('admin.org.index',compact('data'));
     }
 
-    public function create($id=null)
+    public function create()
     {
         $roles = \Spatie\Permission\Models\Role::all();
         return view('admin.org.form',compact('roles'));
@@ -57,6 +57,7 @@ class UserController extends Controller
             return redirect()->route('job.index')->with('info','Your data temporarily deleted.');
         }
     }
+
     public function trashed($id=null,Request $request)
     {
         if(isset($id) & $request->isMethod('PATCH')){

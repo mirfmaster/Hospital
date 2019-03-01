@@ -26,6 +26,13 @@ class PatientController extends Controller
 
     public function store(Request $request)
     {
+        $request->validate([
+            'name' => "required|max:50",
+            'username' => 'required|unique:patients',
+            'birth_date'=>"required",
+            'address'=>'nullable',
+            'phone' => 'nullable'
+        ]);
         $hashedPassword=Hash::make('new patient');
         $user = Patient::create($request->all() + ['password'=>$hashedPassword]);
         return redirect()->route('patient.index')->with('success', 'Your request succesfully executed.');
@@ -64,5 +71,35 @@ class PatientController extends Controller
         return view('user.login');
     }
 
-    
+    public function history($id)
+    {
+        $patient=Patient::findOrFail($id);
+        $data=$patient->user();
+        return view('user.history',compact('data'));
+    }
+
+    public function changePassword(Request $request)
+    {
+        $newHash=Hash::make($request->new);
+        $userId=Auth::user()->id;
+        $userPassword=Auth::user()->password;
+        if(Hash::check($request->old,$userPassword)){
+            if(!Hash::check($request->new,$userPassword)){
+                if ($request->new===$request->confirmation) {
+                    $user = User::find($userId)->firstOrFail();
+                    $user->password = Hash::make($request->new);
+                    $user->where('id', '=', $userId)->update(['password' => $user->password]);
+                    return redirect()->back()->with("sucMsg","Password changed successfully !");
+                }
+                else
+                {
+                    return redirect()->back()->with("errMsg","Your new password is mismatch. Please try again.");   
+                }
+            } else {
+                return redirect()->back()->with("errMsg","New Password cannot be same as your current password. Please choose a different password.");
+            }
+        } else{
+            return redirect()->back()->with("errMsg","Your password is wrong");
+        }
+    }
 }

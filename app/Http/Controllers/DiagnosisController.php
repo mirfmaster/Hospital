@@ -2,11 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Diagnosis;
 use Illuminate\Http\Request;
+use App\Models\Patient;
+use App\Models\User;
 
 class DiagnosisController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth:admin',['except'=>'show']);
+        $this->middleware('auth:web',['only'=>'show']);
+    }
     /**
      * Display a listing of the resource.
      *
@@ -14,8 +20,16 @@ class DiagnosisController extends Controller
      */
     public function index()
     {
-        $name=substr(str_replace(' ','',strtolower("Muhamad Iqbal")), 0, rand(6,10)).rand(1,100);
-        dd($name);
+        // $user=User::with('patients')->get();
+        $data=User::orderBy('name')->paginate(5);
+        // $patients=$user->patients();
+        // foreach ($users as $user) {
+        //     foreach ($user->patients as $pa) {
+        //         dd($pa->pivot->diagnose);
+        //     }
+        // }
+        // dd($user->toArray());
+        return view('admin.diagnosis.index',compact('data'));
     }
 
     /**
@@ -25,7 +39,9 @@ class DiagnosisController extends Controller
      */
     public function create()
     {
-        //
+        $users=User::all();
+        $patients=Patient::all();
+        return view('admin.diagnosis.form')->with('patients',$patients)->with('users',$users);
     }
 
     /**
@@ -36,7 +52,9 @@ class DiagnosisController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $user=User::findOrFail($request->user_id);
+        $save=$user->patients()->attach($request->patient_id,['diagnose'=>$request->diagnose]);
+        return redirect()->route('diagnosis.index')->with('success', 'Your request succesfully executed.');
     }
 
     /**
@@ -45,9 +63,10 @@ class DiagnosisController extends Controller
      * @param  \App\Models\Diagnosis  $diagnosis
      * @return \Illuminate\Http\Response
      */
-    public function show(Diagnosis $diagnosis)
+    public function show(Patient $patient,$id)
     {
-        //
+        $data=auth()->user()->with('user')->find($id);
+        return view('user.history',compact('data'));
     }
 
     /**
@@ -79,8 +98,10 @@ class DiagnosisController extends Controller
      * @param  \App\Models\Diagnosis  $diagnosis
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Diagnosis $diagnosis)
+    public function destroy(Request $request,$userid)
     {
-        //
+        $doctor=User::findOrFail($userid);
+        $delete=$doctor->patients()->detach($request->patient_id);
+        dd($delete);
     }
 }
