@@ -3,4 +3,4 @@
 @section('content')
 Welcome
 
-@endsection
+@endsection 

@@ -50,10 +50,10 @@ class LoginController extends Controller
         //Attempt to log the user in
         if (Auth::guard('web')->attempt(['username' => $request->username, 'password' => $request->password], $request->remember)) {
             //if sucessful, the redirect to their
-            return redirect()->intended('/');
+            // return redirect()->intended('/');
         }
         //if unseccessful
-        return redirect()->back()->withInput($request->only('username','password', 'remember'));
+        return redirect()->back()->withInput($request->only('username', 'password', 'remember'));
     }
 
     public function showLoginForm()

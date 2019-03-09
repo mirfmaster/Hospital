@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+
+<head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <!-- Meta, title, CSS, favicons, etc. -->
     <meta charset="utf-8">
@@ -21,102 +22,105 @@
 
     <!-- Custom Theme Style -->
     <link href="{{asset('styling/css/custom.min.css')}}" rel="stylesheet">
-  </head>
+</head>
 
-  <body class="login">
+<body class="login">
     @if(Session::has('success'))
-      <div class="alert alert-success" role="alert">{{Session::pull('success')}}</div>
+    <div class="alert alert-success" role="alert">{{Session::pull('success')}}</div>
     @endif
     <div>
-      <a class="hiddenanchor" id="signup"></a>
-      <a class="hiddenanchor" id="signin"></a>
-      <div class="login_wrapper">
-        <div class="animate form login_form">
-          <section class="login_content">
-            <form action="{{route('admin.login.submit')}}" method="POST">
-              @csrf
-              <h1>Login Form</h1>
-              <div>
-                <input type="text" class="form-control" placeholder="email" required="" name="email" />
-                @if ($errors->has('email'))
-                    <span class="invalid-feedback" role="alert">
-                        <strong>{{ $errors->first('email') }}</strong>
-                    </span>
-                @endif
-              </div>
-              <div>
-                <input type="password" class="form-control" placeholder="Password" required="" name="password" />
-                @if ($errors->has('password'))
-                    <span class="invalid-feedback" role="alert">
-                        <strong>{{ $errors->first('password') }}</strong>
-                    </span>
-                @endif
-              </div>
-              <div style="display: flex; justify-content: center;">
-                <input type="submit" value="Login" class="btn btn-default submit">
-              </div>
+        <a class="hiddenanchor" id="signup"></a>
+        <a class="hiddenanchor" id="signin"></a>
+        <div class="login_wrapper">
+            <div class="animate form login_form">
+                <section class="login_content">
+                    <form action="{{route('admin.login.submit')}}" method="POST">
+                        @csrf
+                        <h1>Login Form</h1>
+                        <div>
+                            <input type="text" class="form-control" placeholder="email" required="" name="email" />
+                            @if ($errors->has('email'))
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $errors->first('email') }}</strong>
+                            </span>
+                            @endif
+                        </div>
+                        <div>
+                            <input type="password" class="form-control" placeholder="Password" required="" name="password" />
+                            @if ($errors->has('password'))
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $errors->first('password') }}</strong>
+                            </span>
+                            @endif
+                            <input type="checkbox" placeholder="Password" name="remember" />
+                            Can we remember you?
+                        </div>
+                        <div style="display: flex; justify-content: center;margin-top:5px;">
+                            <input type="submit" value="Login" class="btn btn-default submit">
+                        </div>
 
-              <div class="clearfix"></div>
+                        <div class="clearfix"></div>
 
-              <div class="separator">
-                <p class="change_link">New to site?
-                  <a href="#signup" class="to_register"> Create Account </a>
-                </p>
+                        <div class="separator">
+                            <p class="change_link">New to site?
+                                <a href="#signup" class="to_register"> Create Account </a>
+                            </p>
 
-                <div class="clearfix"></div>
-                <br />
+                            <div class="clearfix"></div>
+                            <br />
 
-                <div>
-                  <h1><i class="fa fa-paw"></i> Gentelella Alela!</h1>
-                  <p>©2016 All Rights Reserved. Gentelella Alela! is a Bootstrap 3 template. Privacy and Terms</p>
-                </div>
-              </div>
-            </form>
-          </section>
+                            <div>
+                                <h1><i class="fa fa-paw"></i> Gentelella Alela!</h1>
+                                <p>©2016 All Rights Reserved. Gentelella Alela! is a Bootstrap 3 template. Privacy and Terms</p>
+                            </div>
+                        </div>
+                    </form>
+                </section>
+            </div>
+
+            <div id="register" class="animate form registration_form">
+                <section class="login_content">
+                    <form method="POST" action="{{route('register')}}">
+                        @csrf
+                        <h1>Create Account</h1>
+                        <div>
+                            <input type="text" class="form-control" placeholder="Username" required="" name="name" />
+                        </div>
+                        <div>
+                            <input type="email" class="form-control" placeholder="Email" required="" name="email" />
+                        </div>
+                        <div>
+                            <input type="password" class="form-control" placeholder="Password" required="" name="password" />
+                        </div>
+                        <div>
+                            <input type="password" class="form-control" placeholder="Password Confirmation" required="" name="password_confirmation" />
+                        </div>
+                        <div style="display: flex; justify-content: center;">
+                            <input type="submit" value="Submit" class="btn btn-default submit">
+                        </div>
+
+
+                        <div class="clearfix"></div>
+
+                        <div class="separator">
+
+                            <p class="change_link">Already a member ?
+                                <a href="#signin" class="to_register"> Log in </a>
+                            </p>
+
+                            <div class="clearfix"></div>
+                            <br />
+
+                            <div>
+                                <h1><i class="fa fa-paw"></i> Gentelella Alela!</h1>
+                                <p>©2016 All Rights Reserved. Gentelella Alela! is a Bootstrap 3 template. Privacy and Terms</p>
+                            </div>
+                        </div>
+                    </form>
+                </section>
+            </div>
         </div>
-
-        <div id="register" class="animate form registration_form">
-          <section class="login_content">
-            <form method="POST" action="{{route('register')}}">
-            @csrf
-              <h1>Create Account</h1>
-              <div>
-                <input type="text" class="form-control" placeholder="Username" required="" name="name"/>
-              </div>
-              <div>
-                <input type="email" class="form-control" placeholder="Email" required="" name="email"/>
-              </div>
-              <div>
-                <input type="password" class="form-control" placeholder="Password" required="" name="password"/>
-              </div>
-              <div>
-                <input type="password" class="form-control" placeholder="Password Confirmation" required="" name="password_confirmation"/>
-              </div>
-              <div style="display: flex; justify-content: center;">
-                <input type="submit" value="Submit" class="btn btn-default submit">
-              </div>
-            
-
-              <div class="clearfix"></div>
-
-              <div class="separator">
-            
-                <p class="change_link">Already a member ?
-                  <a href="#signin" class="to_register"> Log in </a>
-                </p>
-
-                <div class="clearfix"></div>
-                <br />
-
-                <div>
-                  <h1><i class="fa fa-paw"></i> Gentelella Alela!</h1>
-                  <p>©2016 All Rights Reserved. Gentelella Alela! is a Bootstrap 3 template. Privacy and Terms</p>
-                </div>
-              </div>
-            </form>
-          </section>
-        </div>
-      </div>
     </div>
-  </body>
-</html>
+</body>
+
+</html> 

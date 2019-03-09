@@ -5,103 +5,72 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Patient;
 use App\Models\User;
+use App\Models\Prescription;
+use DB;
+use PDF;
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
+use Illuminate\Support\Facades\Auth;
 
 class DiagnosisController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth:admin',['except'=>'show']);
-        $this->middleware('auth:web',['only'=>'show']);
+        $this->middleware('auth:web', ['only' => ['show', 'prescription']]);
+        $this->middleware('auth:admin', ['except' => ['show', 'prescription']]);
     }
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index()
     {
-        // $user=User::with('patients')->get();
-        $data=User::orderBy('name')->paginate(5);
-        // $patients=$user->patients();
-        // foreach ($users as $user) {
-        //     foreach ($user->patients as $pa) {
-        //         dd($pa->pivot->diagnose);
-        //     }
-        // }
-        // dd($user->toArray());
-        return view('admin.diagnosis.index',compact('data'));
+        $data = User::orderBy('created_at', 'DESC')->paginate(5);
+        return view('admin.diagnosis.index', compact('data'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
-        $users=User::all();
-        $patients=Patient::all();
-        return view('admin.diagnosis.form')->with('patients',$patients)->with('users',$users);
+        $users = User::all();
+        $patients = Patient::all();
+        return view('admin.diagnosis.form')->with('patients', $patients)->with('users', $users);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
-        $user=User::findOrFail($request->user_id);
-        $save=$user->patients()->attach($request->patient_id,['diagnose'=>$request->diagnose]);
+        $user = User::findOrFail($request->user_id);
+        $save = $user->patients()->attach($request->patient_id, ['diagnose' => $request->diagnose]);
+        $lastInsertedId = DB::table('diagnosis')->orderBy('id', 'DESC')->first()->id;
+        if (isset($request->prescription)) {
+            $savePrescription = new Prescription;
+            $savePrescription->diagnose_id = $lastInsertedId;
+            $savePrescription->medical_prescription = $request->medical_prescription;
+            $savePrescription->validity_period = $request->validity_period;
+            $savePrescription->save();
+        }
         return redirect()->route('diagnosis.index')->with('success', 'Your request succesfully executed.');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Diagnosis  $diagnosis
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Patient $patient,$id)
+    public function show(Patient $patient, $id)
     {
-        $data=auth()->user()->with('user')->find($id);
-        return view('user.history',compact('data'));
+        $data = $patient->find($id);
+
+        $prescription = Prescription::get();
+        // dd($data,$prescription);
+        return view('user.history', compact('data', 'prescription'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Diagnosis  $diagnosis
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Diagnosis $diagnosis)
+    public function prescription($id)
     {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Diagnosis  $diagnosis
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Diagnosis $diagnosis)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Diagnosis  $diagnosis
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Request $request,$userid)
-    {
-        $doctor=User::findOrFail($userid);
-        $delete=$doctor->patients()->detach($request->patient_id);
-        dd($delete);
+        $prescription = DB::table('diagnosis')
+            ->join('prescriptions', 'diagnosis.id', '=', 'prescriptions.diagnose_id')
+            ->join('patients', 'diagnosis.patient_id', 'patients.id')
+            ->join('users', 'diagnosis.user_id', 'users.id')
+            ->where('diagnosis.id', '=', $id)
+            ->select('diagnosis.*', 'patients.name', 'prescriptions.*', 'users.name as doctor')
+            ->first();
+        $patientName = Auth::user()->name;
+        // $target_dir = public_path('QRCode/' . $patientName . "/");
+        // $newQR = $target_dir . $patientName . ".png";
+        // QrCode::generate('Make me into a QrCode!', $newQR);
+        $pdf = PDF::loadView('user.prescription', compact('prescription'));
+        return $pdf->stream();
+        // return $pdf->download('reports.pdf');
     }
 }

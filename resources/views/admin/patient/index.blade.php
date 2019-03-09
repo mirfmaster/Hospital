@@ -3,7 +3,7 @@
 
 @section('content')
 <table id="datatable-responsive" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
-    <thead >
+    <thead>
         <tr>
             <th>No</th>
             <th>Name</th>
@@ -29,21 +29,25 @@
             <td class="text-center">{{Carbon\Carbon::parse($d->created_at)->format('j F Y')}}</td>
             <td class="text-center">{{Carbon\Carbon::parse($d->updated_at)->format('j F Y')}}</td>
             <td class="text-center align-middle">
-            <a href="{{route('patient.show',$d['id'])}}" class="btn btn-warning"> <span class="glyphicon glyphicon-pencil"></span></a>    
+                <a href="{{route('patient.show',$d['id'])}}" class="btn btn-warning"> <span class="glyphicon glyphicon-pencil"></span></a>
                 <form action="{{route('patient.destroy',$d['id'])}}" method="post">
                     @csrf
                     @method('DELETE')
                     <button type="submit" class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span></button>
-                </form> 
+                </form>
             </td>
         </tr>
         @empty
-            <tr><td colspan="8"> Sorry we dont found data yet.</td></tr>
+        <tr>
+            <td colspan="8"> Sorry we dont found data yet.</td>
+        </tr>
         @endforelse
-        
+
     </tbody>
-    
+
 </table>
 {{$data->links()}}
-<a href="{{route('patient.create')}}" class="btn btn-primary">Add Data</a>
-@endsection
+<center>
+    <a href="{{route('patient.create')}}" class="btn btn-primary">Add Data</a>
+</center>
+@endsection 

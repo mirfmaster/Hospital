@@ -25,7 +25,7 @@ class RedirectIfAuthenticated
                 break;
             default:
                 if(Auth::guard($guard)->check()) {
-                    return redirect()->to('/dashboard');
+                    return redirect()->to('/');
                 }
         }
         return $next($request);

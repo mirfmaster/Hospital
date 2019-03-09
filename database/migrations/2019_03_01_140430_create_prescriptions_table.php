@@ -15,10 +15,8 @@ class CreatePrescriptionsTable extends Migration
     {
         Schema::create('prescriptions', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedInteger('patient_id');
-            $table->foreign('patient_id')->references('id')->on('patients')->onDelete('cascade');
-            $table->unsignedInteger('user_id');
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->unsignedInteger('diagnose_id');
+            $table->foreign('diagnose_id')->references('id')->on('diagnosis')->onDelete('cascade');
             $table->string('medical_prescription');
             $table->string('validity_period');
             $table->timestamps();

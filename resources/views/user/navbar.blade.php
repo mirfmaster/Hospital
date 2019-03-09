@@ -12,10 +12,10 @@
                         <a href="#service">Services</a>
                         <a href="#appoinment">Appoinment</a>
                         @if(!Auth::check())
-                            <a href="/login">Login</a>
+                        <a href="/login">Login</a>
                         @else
-                            <a href="{{route('diagnosis.show',auth()->user()->id)}}">History</a>
-                            <a href="/logout">Logout</a>
+                        <a href="{{route('diagnosis.show',auth()->user()->id)}}">History</a>
+                        <a href="/logout">Logout</a>
                         @endif
                     </nav>
                     <div class="menu-bar"><span class="lnr lnr-menu"></span></div>
@@ -23,4 +23,4 @@
             </div>
         </div>
     </div>
-</header>
+</header> 

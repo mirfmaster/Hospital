@@ -5,4 +5,4 @@
     <a data-toggle="tooltip" data-placement="top" title="Logout" href="{{url('admin/logout')}}">
         <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
     </a>
-</div>
+</div> 

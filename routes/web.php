@@ -16,23 +16,24 @@ Route::get('/', function () {
 });
 
 Route::get('/login', 'Auth\LoginController@showLoginForm')->name('login');
-Route::post('/login','Auth\LoginController@login')->name('user.login.submit');
+Route::post('/login', 'Auth\LoginController@login')->name('user.login.submit');
 Route::get('/history/{id}', 'PatientController@history')->name('history');
 
-Route::get('/logout','Auth\LoginController@logout');
+Route::get('/logout', 'Auth\LoginController@logout');
+Route::get('/prescription/{diagnose_id}', 'DiagnosisController@prescription')->name('prescription');
 
 
 Route::prefix('admin')->group(function () {
 
     Route::get('/', 'UserController@index');
-    Route::get('/login','Auth\AdminLoginController@showLoginForm')->name('admin.login');
-    Route::post('/login','Auth\AdminLoginController@login')->name('admin.login.submit');
-    Route::get('/logout','Auth\AdminLoginController@logout');
-    Route::get('/patient/generateUserName/{name}','PatientController@generateUserName');
+    Route::get('/login', 'Auth\AdminLoginController@showLoginForm')->name('admin.login');
+    Route::post('/login', 'Auth\AdminLoginController@login')->name('admin.login.submit');
+    Route::get('/logout', 'Auth\AdminLoginController@logout');
+    Route::get('/patient/generateUserName/{name}', 'PatientController@generateUserName');
 
     // Route::name('trashed.')->group(function(){});
-    Route::match(['get', 'delete','patch'], 'job/trashed/{job?}', 'JobController@trashed')->name('job.trashed');
-    Route::match(['get', 'delete','patch'], 'drug/trashed/{drug?}', 'DrugController@trashed')->name('drug.trashed');
+    Route::match(['get', 'delete', 'patch'], 'job/trashed/{job?}', 'JobController@trashed')->name('job.trashed');
+    Route::match(['get', 'delete', 'patch'], 'drug/trashed/{drug?}', 'DrugController@trashed')->name('drug.trashed');
 
     Route::resource('user', 'UserController');
     Route::resource('patient', 'PatientController');
